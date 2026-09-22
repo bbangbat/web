@@ -69,7 +69,7 @@ function KakaoMapCanvas(props: BakeryMapProps) {
   const mapRef = useRef<kakao.maps.Map | null>(null);
   const mapWrapRef = useRef<HTMLDivElement>(null);
   const mapControlStackRef = useRef<HTMLDivElement>(null);
-  const searchHereButtonRef = useRef<HTMLButtonElement>(null);
+  const searchCurrentAreaButtonRef = useRef<HTMLButtonElement>(null);
   const initialViewportFrameRef = useRef<number | null>(null);
   const mapMovementFrameRef = useRef<number | null>(null);
   const mapMovementActiveRef = useRef(false);
@@ -316,7 +316,7 @@ function KakaoMapCanvas(props: BakeryMapProps) {
       ? mapControlStackRef.current?.getBoundingClientRect()
       : undefined;
     const searchButtonRect = restrictToControls
-      ? searchHereButtonRef.current?.getBoundingClientRect()
+      ? searchCurrentAreaButtonRef.current?.getBoundingClientRect()
       : undefined;
     const searchArea = resolveSearchAreaPixels({
       width,
@@ -516,7 +516,6 @@ function KakaoMapCanvas(props: BakeryMapProps) {
         </button>
       </div>
       <button
-        ref={searchHereButtonRef}
         type="button"
         className="map-locate-button"
         data-loading={props.locationStatus === "locating"}
@@ -528,6 +527,7 @@ function KakaoMapCanvas(props: BakeryMapProps) {
         <Crosshair aria-hidden="true" size={18} />
       </button>
       <button
+        ref={searchCurrentAreaButtonRef}
         type="button"
         className="map-search-here"
         onClick={() => {
